@@ -25,6 +25,10 @@ WuJiNote is a powerful, local-first note-taking application built with Electron 
 - **Editor**: Tiptap
 - **Styling**: SCSS
 
+## Recommended IDE Setup
+
+- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+
 ## Getting Started
 
 ### Prerequisites
@@ -73,6 +77,8 @@ Build for specific platforms:
 # WuJiNote 中文说明
 
 WuJiNote 是一款基于 Electron 和 Vue 3 构建的强大本地优先笔记应用。它拥有丰富文本编辑器、稳健的本地数据库存储以及现代化的用户界面。
+
+**吾记，记录吾言。一款简洁、高效的本地笔记应用，专注于提供极致的写作体验，助您随时随地捕捉灵感。**
 
 ## 功能特性
 
