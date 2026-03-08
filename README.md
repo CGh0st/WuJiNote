@@ -1,6 +1,7 @@
 # wujinote-electron-app
 
 An Electron application with Vue
+吾记，记录吾言。一款简洁、高效的本地笔记应用，专注于提供极致的写作体验，助您随时随地捕捉灵感
 
 ## Recommended IDE Setup
 
