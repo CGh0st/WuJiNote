@@ -1,0 +1,325 @@
+.tiptap {
+  color: var(--color-neutral-10);
+
+  :first-child {
+    margin-top: 0;
+  }
+
+  /* List styles */
+  ul {
+    margin: 1.25rem 1rem 1.25rem 3rem;
+    list-style-type: disc; /* 确保序号显示 */
+    padding-left: 5rem;
+    color: var(--color-neutral-10);
+
+    li p {
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+      color: var(--color-neutral-10);
+    }
+  }
+
+  ol {
+    margin: 1.25rem 1rem 1.25rem 3rem;
+    list-style-type: decimal; /* 确保数字序号显示 */
+    padding-left: 5rem;
+    color: var(--color-neutral-10);
+
+    li p {
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+      color: var(--color-neutral-10);
+    }
+  }
+
+  /* Task list specific styles */
+  ul[data-type='taskList'] {
+    list-style: none;
+    margin-left: 3rem;
+    padding: 0;
+
+    li {
+      align-items: center;
+      display: flex;
+
+      > label {
+        flex: 0 0 auto;
+        margin-right: 0.5rem;
+        user-select: none;
+      }
+
+      > div {
+        flex: 1 1 auto;
+        margin-top: 0 !important;
+      }
+
+      &[data-checked='true'] > div {
+        text-decoration: line-through;
+        text-decoration-thickness: 1px;
+        text-decoration-color: var(--color-neutral-10);
+        color: var(--color-neutral-5);
+      }
+    }
+
+    ul[data-type='taskList'] {
+      margin: 0;
+    }
+  }
+
+  p {
+    line-height: 1.95rem;
+  }
+
+  /* Heading styles */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.4;
+    margin-top: 2.5rem;
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: 1rem;
+  }
+
+  /* Code and preformatted text styles */
+  code {
+    background-color: var(--color-neutral-2);
+    border-radius: 0.4rem;
+    color: var(--color-neutral-10);
+    font-size: 0.85rem;
+    padding: 0.25em 0.3em;
+  }
+
+  img {
+    display: block;
+    height: auto;
+    margin: 1.5rem 3rem;
+    max-width: 80%;
+
+    &.ProseMirror-selectednode {
+      outline: 3px solid rgb(var(--arcoblue-6));
+    }
+  }
+
+  /* Link styles */
+  a {
+    color: rgb(var(--arcoblue-6));
+    cursor: pointer;
+
+    &:hover {
+      color: rgb(var(--arcoblue-3));
+    }
+  }
+
+  pre {
+    background: var(--color-neutral-2) !important;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0 20px 50px;
+    padding: 0.75rem 1rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.3px;
+    word-spacing: 0.5px;
+
+    code {
+      font-family: 'Consolas', 'JetBrains Mono', monospace !important;
+      /* 添加字体平滑 */
+      background: none;
+      color: inherit;
+      padding: 0;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      word-spacing: 0.3px;
+    }
+    /* Code styling */
+    .hljs {
+      color: #c9d1d9;
+      background: #0d1117;
+    }
+    .hljs-doctag,
+    .hljs-keyword,
+    .hljs-meta .hljs-keyword,
+    .hljs-template-tag,
+    .hljs-template-variable,
+    .hljs-type,
+    .hljs-variable.language_ {
+      color: #ff7b72;
+    }
+    .hljs-title,
+    .hljs-title.class_,
+    .hljs-title.class_.inherited__,
+    .hljs-title.function_ {
+      color: #d2a8ff;
+    }
+    .hljs-attr,
+    .hljs-attribute,
+    .hljs-literal,
+    .hljs-meta,
+    .hljs-number,
+    .hljs-operator,
+    .hljs-selector-attr,
+    .hljs-selector-class,
+    .hljs-selector-id,
+    .hljs-variable {
+      color: #79c0ff;
+    }
+    .hljs-meta .hljs-string,
+    .hljs-regexp,
+    .hljs-string {
+      color: #a5d6ff;
+    }
+    .hljs-built_in,
+    .hljs-symbol {
+      color: #ffa657;
+    }
+    .hljs-code,
+    .hljs-comment,
+    .hljs-formula {
+      color: #8b949e;
+    }
+    .hljs-name,
+    .hljs-quote,
+    .hljs-selector-pseudo,
+    .hljs-selector-tag {
+      color: #7ee787;
+    }
+    .hljs-subst {
+      color: #c9d1d9;
+    }
+    .hljs-section {
+      color: #1f6feb;
+      font-weight: 700;
+    }
+    .hljs-bullet {
+      color: #f2cc60;
+    }
+    .hljs-emphasis {
+      color: #c9d1d9;
+      font-style: italic;
+    }
+    .hljs-strong {
+      color: #c9d1d9;
+      font-weight: 700;
+    }
+    .hljs-addition {
+      color: #aff5b4;
+      background-color: #033a16;
+    }
+    .hljs-deletion {
+      color: #ffdcd7;
+      background-color: #67060c;
+    }
+  }
+
+  blockquote {
+    border-left: 3px solid var(--gray-3);
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--gray-2);
+    margin: 2rem 0;
+  }
+}
+
+/* Placeholder (at the top) */
+p.is-editor-empty:first-child::before {
+  color: var(--color-neutral-8);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Global ProseMirror styles */
+::selection {
+  background-color: rgb(var(--arcoblue-3)) !important;
+}
+.ProseMirror {
+  padding: 1rem 1rem 1rem 0;
+}
+.ProseMirror * {
+  margin-top: 0.75em;
+}
+.ProseMirror > * {
+  margin-left: 3rem;
+}
+.ProseMirror .ProseMirror-widget * {
+  margin-top: auto;
+}
+.ProseMirror ul,
+.ProseMirror ol {
+  padding: 0 1rem;
+}
+.ProseMirror-noderangeselection *::selection {
+  background: transparent;
+}
+
+.ProseMirror .node-selected {
+  background-color: rgb(var(--arcoblue-2)) !important;
+}
+
+.ProseMirror-noderangeselection * {
+  caret-color: transparent;
+}
+.ProseMirror-selectednode,
+.ProseMirror-selectednoderange {
+  position: relative;
+}
+.ProseMirror-selectednode::before,
+.ProseMirror-selectednoderange::before {
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  content: '';
+  top: -0.25rem;
+  left: -0.25rem;
+  right: -0.25rem;
+  bottom: -0.25rem;
+  background-color: rgb(var(--arcoblue-2)) !important;
+  border: 1px solid rgb(var(--arcoblue-6)) !important;
+  border-radius: 0.2rem;
+}
+.custom-drag-handle::after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1.25rem;
+  content: '⠿';
+  font-weight: 700;
+  cursor: grab;
+  background: var(--color-neutral-3);
+  color: var(--color-neutral-8);
+  border-radius: 0.25rem;
+  top: 5px;
+  right: 20px; /* 新增右侧间距 */
+  position: relative; /* 确保定位生效 */
+  z-index: 1;
+}
