@@ -31,6 +31,11 @@ export default defineConfig({
         '@renderer': resolve('app/renderer/src')
       }
     },
+    define: {
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
+      }
+    },
     plugins: [vue()]
   }
 })

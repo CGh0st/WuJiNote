@@ -47,7 +47,7 @@ const checkUpdate = () => {
 const openGithub = () => {
   // 尝试使用 window.open 打开链接
   // 注意：在 Electron 生产环境中，通常需要主进程配置 setWindowOpenHandler 来调用 shell.openExternal
-  window.open('https://github.com/imzbf/WuJiNote', '_blank')
+  window.open('https://github.com/CGh0st/WuJiNote', '_blank')
 }
 </script>
 

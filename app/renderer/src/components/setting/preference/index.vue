@@ -43,10 +43,7 @@
         </div>
       </div>
       <div class="item-right">
-        <a-button type="primary" @click="checkDatabase">
-          <template #icon><icon-refresh /></template>
-          刷新
-        </a-button>
+        <a-button type="primary" @click="checkDatabase"> 刷新 </a-button>
       </div>
     </div>
 
@@ -61,7 +58,7 @@
         </div>
       </div>
       <div class="item-right">
-        <a-button type="primary" @click="backupDatabase">立即备份</a-button>
+        <a-button type="primary" @click="backupDatabase"> 立即备份 </a-button>
       </div>
     </div>
 
@@ -88,7 +85,7 @@
 import { ref, onMounted } from 'vue'
 import { useSettingsStore } from '../../../store'
 import { Notification } from '@arco-design/web-vue'
-import { IconSkin, IconStorage, IconSave, IconRefresh, IconImport } from '@arco-design/web-vue/es/icon'
+import { IconSkin, IconStorage, IconSave, IconImport } from '@arco-design/web-vue/es/icon'
 import ImportDatabaseModal from './importDatabaseModal.vue'
 
 const settingsStore = useSettingsStore()

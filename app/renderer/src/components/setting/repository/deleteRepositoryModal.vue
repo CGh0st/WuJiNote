@@ -4,25 +4,19 @@
     :footer="false"
     :closable="false"
     :align-center="true"
-    :width="500"
+    :width="480"
     modal-class="delete-repo-modal-container"
     @cancel="visible = false"
   >
     <div class="delete-repo-panel">
-      <div class="content-wrapper">
-        <div class="icon-wrapper">
-          <icon-exclamation-circle-fill :size="24" style="color: rgb(var(--danger-6))" />
-        </div>
-        <div class="message-content">
-          <div class="title">删除知识库</div>
-          <div class="description">删除后，笔记将被移动到"未分类"中。确认删除？</div>
-        </div>
-      </div>
+      <div class="title">删除知识库</div>
+      <div class="divider"></div>
+      <div class="description">删除后，笔记将被移动到"未分类"中。确认删除？</div>
       <div class="action-footer">
-        <a-button type="text" size="small" @click="visible = false">取消</a-button>
-        <a-button type="primary" status="danger" size="small" :loading="isLoading" @click="deleteRepository">
-          确认删除
-        </a-button>
+        <button class="btn-cancel" @click="visible = false">取消</button>
+        <button class="btn-confirm" :disabled="isLoading" @click="deleteRepository">
+          {{ isLoading ? '删除中...' : '确定' }}
+        </button>
       </div>
     </div>
   </a-modal>
@@ -31,7 +25,6 @@
 <script setup>
 import { ref } from 'vue'
 import { Notification } from '@arco-design/web-vue'
-import { IconExclamationCircleFill } from '@arco-design/web-vue/es/icon'
 
 const visible = ref(false)
 const deleteRepositoryId = ref(null)
@@ -45,6 +38,7 @@ const showModal = (id) => {
 const emit = defineEmits(['refresh'])
 
 const deleteRepository = async () => {
+  if (isLoading.value) return
   isLoading.value = true
   try {
     const result = await window.electronAPI.deleteRepository(deleteRepositoryId.value)
@@ -90,6 +84,7 @@ defineExpose({
   background: transparent !important;
   box-shadow: none !important;
   padding: 0 !important;
+  border-radius: 12px;
 }
 
 .delete-repo-modal-container .arco-modal-header,
@@ -103,57 +98,84 @@ defineExpose({
   border: none !important;
   box-shadow: none !important;
 }
-
-.delete-repo-modal-container .arco-modal-body {
-  padding: 0 !important;
-  background: transparent !important;
-}
 </style>
 
 <style scoped>
 .delete-repo-panel {
   background: var(--color-bg-2);
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  /* border: 1px solid var(--color-border-2); */
-}
-
-.content-wrapper {
-  display: flex;
-  padding: 24px 24px 16px;
-  gap: 16px;
-}
-
-.icon-wrapper {
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.message-content {
-  flex: 1;
+  padding: 22px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .title {
-  font-size: 16px;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--color-text-1);
-  margin-bottom: 8px;
+  margin-bottom: 24px;
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--color-border-2);
+  margin-bottom: 24px;
+  width: 100%;
 }
 
 .description {
   font-size: 14px;
   color: var(--color-text-2);
-  line-height: 1.5;
+  margin-bottom: 48px;
+  line-height: 1.6;
 }
 
 .action-footer {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  padding: 12px 24px 20px;
+  gap: 16px;
+}
+
+.btn-cancel {
+  padding: 10px 32px;
   background: var(--color-bg-2);
+  border: 1px solid var(--color-border-2);
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--color-text-1);
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+  background: var(--color-fill-2);
+  border-color: var(--color-border-3);
+}
+
+.btn-confirm {
+  padding: 10px 32px;
+  background: rgb(var(--danger-6));
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(var(--danger-6), 0.3);
+  transition: all 0.2s;
+}
+
+.btn-confirm:hover {
+  background: rgb(var(--danger-5));
+}
+
+.btn-confirm:disabled {
+  background: var(--color-neutral-4);
+  cursor: not-allowed;
+  box-shadow: none;
 }
 </style>

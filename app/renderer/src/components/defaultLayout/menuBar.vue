@@ -9,6 +9,11 @@
           <icon-list :size="18" />
         </template>
       </a-button>
+      <a-button class="menu-btn" type="text" @click="router.push('/drawBoard')">
+        <template #icon>
+          <IconBrush :size="18" />
+        </template>
+      </a-button>
       <a-button class="menu-btn" type="text" @click="router.push('/recycleBin')">
         <template #icon>
           <icon-delete :size="18" />

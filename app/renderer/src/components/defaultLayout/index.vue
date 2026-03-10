@@ -14,7 +14,7 @@
           <!-- 为组件添加过渡动画 -->
           <transition name="fade">
             <!-- 为组件添加keep-alive特性，帮助缓存页面 -->
-            <keep-alive :max="50">
+            <keep-alive :max="50" exclude="DrawBoard">
               <component :is="Component"></component>
             </keep-alive>
           </transition>

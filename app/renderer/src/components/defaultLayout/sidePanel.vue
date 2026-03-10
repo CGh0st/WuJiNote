@@ -21,7 +21,6 @@
         :data="treeData"
         class="note-tree"
         block-node
-        show-line
         @select="routeToArticleView"
       />
     </a-scrollbar>
@@ -29,6 +28,8 @@
 </template>
 
 <script setup>
+import { h } from 'vue'
+import { IconDriveFile, IconFolder } from '@arco-design/web-vue/es/icon'
 import { onMounted, ref, watch, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '../../router.js'
@@ -104,6 +105,7 @@ const fetchTreeData = async () => {
       repoMap.set(repo.id, {
         title: repo.name,
         key: `repo-${repo.id}`,
+        icon: () => h(IconFolder),
         children: []
       })
     })
@@ -113,7 +115,8 @@ const fetchTreeData = async () => {
       repoMap.get(note.repositoryId).children.push({
         title: note.title,
         key: `/noteEditor/${note.id}`,
-        isLeaf: true
+        isLeaf: true,
+        icon: () => h(IconDriveFile)
       })
     }
   })
@@ -185,7 +188,7 @@ onUnmounted(() => {
 .search-bar {
   width: 84%;
   margin: 0px 15px;
-  background: var(--color-bg-3);
+  background: var(--color-bg-2);
   border-radius: 4px;
   padding: 4px 8px;
   display: flex;

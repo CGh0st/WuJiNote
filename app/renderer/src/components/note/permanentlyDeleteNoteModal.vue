@@ -30,7 +30,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { Notification } from '@arco-design/web-vue'
 import { IconExclamationCircleFill } from '@arco-design/web-vue/es/icon'
 

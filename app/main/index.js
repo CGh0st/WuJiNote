@@ -3,7 +3,7 @@ import { join } from 'path'
 import connectDatabase from './database'
 import { registerIpcHandlers } from './ipc'
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
-import { app, BrowserWindow, shell, screen } from 'electron'
+import { app, BrowserWindow, shell } from 'electron'
 
 function createWindow() {
   const mainWindow = new BrowserWindow({

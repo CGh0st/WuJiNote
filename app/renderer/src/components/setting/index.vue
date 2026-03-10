@@ -174,7 +174,7 @@ defineExpose({
 
 .menu-item.active {
   background: var(--color-fill-3);
-  color: var(--color-text-1);
+  color: rgb(var(--arcoblue-6));
   font-weight: 500;
 }
 

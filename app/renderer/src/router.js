@@ -23,6 +23,11 @@ const router = createRouter({
           path: '/recycleBin',
           name: 'recycleBinView',
           component: () => import('./pages/recycleBin.vue')
+        },
+        {
+          path: '/drawBoard',
+          name: 'drawBoard',
+          component: () => import('./pages/drawBoard.vue')
         }
       ]
     }
