@@ -1,83 +1,108 @@
 <template>
   <div class="preference-setting">
-    <!-- 常规设置 -->
-    <div class="section-title">常规</div>
+    <a-scrollbar class="scrollbar-container">
+      <!-- 常规设置 -->
+      <div class="section-title">常规</div>
 
-    <div class="setting-item">
-      <div class="item-left">
-        <div class="icon-wrapper">
-          <icon-skin />
-        </div>
-        <div class="text-content">
-          <div class="item-title">应用程序主题</div>
-          <div class="item-desc">切换应用程序的明亮/暗黑模式</div>
-        </div>
-      </div>
-      <div class="item-right">
-        <a-switch :model-value="settingsStore.isDarkMode" @change="settingsStore.toggleDarkMode">
-          <template #checked> 暗黑 </template>
-          <template #unchecked> 明亮 </template>
-        </a-switch>
-      </div>
-    </div>
-
-    <!-- 数据管理 -->
-    <div class="section-title">数据管理</div>
-
-    <div class="setting-item">
-      <div class="item-left">
-        <div class="icon-wrapper">
-          <icon-storage />
-        </div>
-        <div class="text-content">
-          <div class="item-title">数据库状态</div>
-          <div class="item-desc">
-            <a-space size="small">
-              <a-tag size="small" :color="databaseStatus.exists ? 'green' : 'red'">
-                {{ databaseStatus.exists ? '正常' : '缺失' }}
-              </a-tag>
-              <span>{{ formatSize(databaseStatus.size) }}</span>
-            </a-space>
-            <div class="path-info" :title="databaseStatus.path">{{ databaseStatus.path || '未知路径' }}</div>
+      <div class="setting-item">
+        <div class="item-left">
+          <div class="icon-wrapper">
+            <icon-skin />
+          </div>
+          <div class="text-content">
+            <div class="item-title">应用程序主题</div>
+            <div class="item-desc">切换应用程序的明亮/暗黑模式</div>
           </div>
         </div>
+        <div class="item-right">
+          <a-switch :model-value="settingsStore.isDarkMode" @change="settingsStore.toggleDarkMode">
+            <template #checked> 暗黑 </template>
+            <template #unchecked> 明亮 </template>
+          </a-switch>
+        </div>
       </div>
-      <div class="item-right">
-        <a-button type="primary" @click="checkDatabase"> 刷新 </a-button>
-      </div>
-    </div>
 
-    <div class="setting-item">
-      <div class="item-left">
-        <div class="icon-wrapper">
-          <icon-save />
+      <div class="setting-item">
+        <div class="item-left">
+          <div class="icon-wrapper">
+            <icon-settings />
+          </div>
+          <div class="text-content">
+            <div class="item-title">窗口材质</div>
+            <div class="item-desc">选择应用窗口背景材质</div>
+          </div>
         </div>
-        <div class="text-content">
-          <div class="item-title">数据备份</div>
-          <div class="item-desc">将当前数据库备份到指定位置，防止数据丢失</div>
+        <div class="item-right">
+          <a-select
+            :model-value="settingsStore.backgroundMaterial"
+            :style="{ width: '160px', backgroundColor: 'var(--color-bg-2)' }"
+            @change="handleMaterialChange"
+          >
+            <a-option value="mica">Mica</a-option>
+            <a-option value="acrylic">Acrylic</a-option>
+            <a-option value="tabbed">Tabbed</a-option>
+          </a-select>
         </div>
       </div>
-      <div class="item-right">
-        <a-button type="primary" @click="backupDatabase"> 立即备份 </a-button>
-      </div>
-    </div>
 
-    <div class="setting-item">
-      <div class="item-left">
-        <div class="icon-wrapper">
-          <icon-import />
-        </div>
-        <div class="text-content">
-          <div class="item-title">导入数据库</div>
-          <div class="item-desc">从备份文件恢复数据库（警告：当前数据将被覆盖）</div>
-        </div>
-      </div>
-      <div class="item-right">
-        <a-button status="danger" @click="importDatabase">导入数据</a-button>
-      </div>
-    </div>
+      <!-- 数据管理 -->
+      <div class="section-title">数据管理</div>
 
-    <ImportDatabaseModal ref="importModalRef" />
+      <div class="setting-item">
+        <div class="item-left">
+          <div class="icon-wrapper">
+            <icon-storage />
+          </div>
+          <div class="text-content">
+            <div class="item-title">数据库状态</div>
+            <div class="item-desc">
+              <a-space size="small">
+                <a-tag size="small" :color="databaseStatus.exists ? 'green' : 'red'">
+                  {{ databaseStatus.exists ? '正常' : '缺失' }}
+                </a-tag>
+                <span>{{ formatSize(databaseStatus.size) }}</span>
+              </a-space>
+              <div class="path-info" :title="databaseStatus.path">{{ databaseStatus.path || '未知路径' }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="item-right">
+          <a-button type="primary" @click="checkDatabase"> 刷新 </a-button>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <div class="item-left">
+          <div class="icon-wrapper">
+            <icon-save />
+          </div>
+          <div class="text-content">
+            <div class="item-title">数据备份</div>
+            <div class="item-desc">将当前数据库备份到指定位置，防止数据丢失</div>
+          </div>
+        </div>
+        <div class="item-right">
+          <a-button type="primary" @click="backupDatabase"> 立即备份 </a-button>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <div class="item-left">
+          <div class="icon-wrapper">
+            <icon-import />
+          </div>
+          <div class="text-content">
+            <div class="item-title">导入数据库</div>
+            <div class="item-desc">从备份文件恢复数据库（警告：当前数据将被覆盖）</div>
+          </div>
+        </div>
+        <div class="item-right">
+          <a-button status="danger" @click="importDatabase">导入数据</a-button>
+        </div>
+      </div>
+
+      <ImportDatabaseModal ref="importModalRef" />
+    </a-scrollbar>
   </div>
 </template>
 
@@ -85,7 +110,7 @@
 import { ref, onMounted } from 'vue'
 import { useSettingsStore } from '../../../store'
 import { Notification } from '@arco-design/web-vue'
-import { IconSkin, IconStorage, IconSave, IconImport } from '@arco-design/web-vue/es/icon'
+import { IconSkin, IconStorage, IconSave, IconImport, IconSettings } from '@arco-design/web-vue/es/icon'
 import ImportDatabaseModal from './importDatabaseModal.vue'
 
 const settingsStore = useSettingsStore()
@@ -139,6 +164,17 @@ const importDatabase = () => {
   importModalRef.value.showModal()
 }
 
+const handleMaterialChange = async (material) => {
+  try {
+    const result = await settingsStore.setBackgroundMaterial(material)
+    if (!result?.success && result?.message) {
+      Notification.warning({ content: result.message })
+    }
+  } catch (error) {
+    Notification.error({ content: error?.message || '设置失败' })
+  }
+}
+
 onMounted(() => {
   checkDatabase()
 })
@@ -147,6 +183,12 @@ onMounted(() => {
 <style scoped>
 .preference-setting {
   padding: 0 10px;
+}
+
+:deep(.scrollbar-container) {
+  height: 500px;
+  overflow: auto;
+  width: 660px;
 }
 
 .section-title {

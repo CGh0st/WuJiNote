@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: wujinote-electron-app
+appId: com.wujinote.app
+productName: 吾记
 directories:
   buildResources: build
   output: release
@@ -13,10 +13,12 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: wujinote-electron-app
+  executableName: wujinote
   icon: resources/icon.png
 nsis:
-  artifactName: ${name}-${version}-setup.${ext}
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  artifactName: ${productName}-${version}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always

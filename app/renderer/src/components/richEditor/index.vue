@@ -1,18 +1,10 @@
 <template>
   <div spellcheck="false">
-    <a-scrollbar
-      :style="{
-        padding: '24px',
-        maxWidth: '1500px',
-        margin: '0 auto',
-        position: 'relative'
-      }"
-      class="editor-content"
-    >
-      <a-row :style="{ alignItems: 'stretch' }">
+    <a-scrollbar class="editor-content">
+      <a-row class="editor-row">
         <a-col :md="16" :lg="18">
-          <div :style="{ margin: '100px 20px' }">
-            <a-typography-title :style="{ fontWeight: '600', margin: '50px 0' }">
+          <div class="editor-main">
+            <a-typography-title class="editor-title">
               {{ title }}
             </a-typography-title>
             <bubble-menu
@@ -20,7 +12,11 @@
               :editor="editor"
               :tippy-options="{
                 duration: 100,
-                placement: 'top-start'
+                placement: 'top-start',
+                appendTo: () => document.body,
+                popperOptions: {
+                  strategy: 'fixed'
+                }
               }"
             >
               <bubbleButton :editor="editor"></bubbleButton>
@@ -31,38 +27,9 @@
             </drag-handle>
           </div>
         </a-col>
-        <a-col
-          :md="8"
-          :lg="6"
-          :style="{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            justifyContent: 'flex-start',
-            paddingLeft: '20px'
-          }"
-        >
-          <div
-            class="toc-container"
-            :style="{
-              position: 'sticky',
-              top: '22vh',
-              width: '100%',
-              maxWidth: '300px',
-              borderRadius: '8px',
-              padding: '12px',
-              maxHeight: '60vh',
-              overflowY: 'auto'
-            }"
-          >
-            <a-anchor
-              :change-hash="false"
-              :style="{
-                width: '100%',
-                minHeight: '100px'
-              }"
-              scroll-container=".editor-content"
-            >
+        <a-col :md="8" :lg="6" class="editor-toc-col">
+          <div class="toc-container">
+            <a-anchor :change-hash="false" class="toc-anchor" scroll-container=".editor-content">
               <a-anchor-link title="大纲"></a-anchor-link>
               <!-- 调用递归渲染方法 -->
               <template v-for="node in tocTree" :key="node.content">
@@ -160,8 +127,33 @@ defineExpose({
 @import './editor.scss';
 
 .editor-content {
+  padding: 24px;
+  max-width: 1500px;
+  margin: 0 auto;
+  position: relative;
   height: 92vh;
   overflow: auto;
+}
+
+.editor-row {
+  align-items: stretch;
+}
+
+.editor-main {
+  margin: 100px 20px;
+}
+
+.editor-title {
+  font-weight: 600;
+  margin: 50px 0;
+}
+
+.editor-toc-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: 20px;
 }
 
 .ProseMirror-focused {
@@ -171,6 +163,22 @@ defineExpose({
 </style>
 
 <style scoped>
+.toc-container {
+  position: sticky;
+  top: 22vh;
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
+  padding: 12px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.toc-anchor {
+  width: 100%;
+  min-height: 100px;
+}
+
 .toc-container::-webkit-scrollbar {
   display: none;
 }

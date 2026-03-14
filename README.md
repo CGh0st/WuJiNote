@@ -4,6 +4,16 @@ WuJiNote is a powerful, local-first note-taking application built with Electron 
 
 [中文文档](#wujinote-中文说明)
 
+<p align="center">
+  <img src="resources/icon.png" width="128" alt="吾记" />
+</p>
+
+## Screenshots
+
+| Light | Dark |
+| --- | --- |
+| ![](resources/screenshots/light.png) | ![](resources/screenshots/dark.png) |
+
 ## Features
 
 - **Rich Text Editing**: Powered by [Tiptap](https://tiptap.dev/), supporting headings, lists, code blocks, tables, images, and more.

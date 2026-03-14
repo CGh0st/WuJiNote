@@ -276,6 +276,39 @@ export function restoreNoteVersion(noteId, versionId) {
   return result
 }
 
+export function deleteNoteVersion(noteId, versionId) {
+  const db = connectDatabase()
+
+  if (!noteId || !versionId) {
+    throw new Error('无效的版本ID')
+  }
+
+  const note = db.prepare('SELECT activeContentVersion FROM notes WHERE id = ?').get(noteId)
+  if (!note) {
+    throw new Error('笔记不存在')
+  }
+
+  const noteVersionsCount = db.prepare('SELECT COUNT(1) AS cnt FROM note_versions WHERE noteId = ?').get(noteId)
+  if ((noteVersionsCount?.cnt || 0) <= 1) {
+    throw new Error('至少保留一个版本')
+  }
+
+  if (Number(note.activeContentVersion) === Number(versionId)) {
+    throw new Error('不能删除主版本')
+  }
+
+  const existing = db.prepare('SELECT id FROM note_versions WHERE id = ? AND noteId = ?').get(versionId, noteId)
+  if (!existing) {
+    throw new Error('版本不存在')
+  }
+
+  const result = db.prepare('DELETE FROM note_versions WHERE id = ? AND noteId = ?').run(versionId, noteId)
+  if (result?.changes > 0) {
+    addNoteLog(noteId, 'delete_version', '删除历史版本')
+  }
+  return result
+}
+
 // 复制笔记
 export function copyNote(noteId) {
   const db = connectDatabase()

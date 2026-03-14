@@ -55,6 +55,7 @@ const toggleTheme = () => {
 
 onMounted(() => {
   settingsStore.InitDarkMode()
+  settingsStore.InitBackgroundMaterial()
 })
 </script>
 

@@ -188,7 +188,10 @@ onUnmounted(() => {
 .search-bar {
   width: 84%;
   margin: 0px 15px;
-  background: var(--color-bg-2);
+  background: color-mix(in srgb, var(--color-bg-2) 60%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-neutral-3) 35%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 4px;
   padding: 4px 8px;
   display: flex;

@@ -14,18 +14,18 @@ function createWindow() {
     show: false,
     frame: false,
     autoHideMenuBar: true,
-    backgroundMaterial: 'mica',
     maximizable: false,
     transparent: false,
     ...(process.platform === 'linux' ? { icon } : {}),
+    ...(process.platform === 'win32' ? { backgroundMaterial: 'mica' } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: true,
-      zoomFactor: 1.0,
+      nodeIntegration: false,
       contextIsolation: true,
-      enablePreferredSizeMode: true,
-      experimentalFeatures: true,
-      backgroundThrottling: false
+      sandbox: true,
+      devTools: true,
+      webSecurity: true,
+      zoomFactor: 1.0
     }
   })
 

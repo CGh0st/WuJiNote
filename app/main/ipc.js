@@ -22,6 +22,7 @@ import {
   getNoteVersionContent,
   getDeletedNotes,
   restoreNoteVersion,
+  deleteNoteVersion,
   copyNote,
   updateNote,
   toggleNoteLock,
@@ -48,6 +49,7 @@ export function registerIpcHandlers() {
     return result
   })
 
+  // 最小化窗口
   ipcMain.on('window-minimize', (event) => {
     const win = BrowserWindow.fromWebContents(event.sender)
     win.minimize()
@@ -87,6 +89,26 @@ export function registerIpcHandlers() {
   ipcMain.on('window-close', (event) => {
     const win = BrowserWindow.fromWebContents(event.sender)
     win.close()
+  })
+
+  // 设置窗口背景材质
+  ipcMain.handle('set-background-material', (event, material) => {
+    const win = BrowserWindow.fromWebContents(event.sender)
+    if (!win) return { success: false, message: 'Window not found.' }
+    if (process.platform !== 'win32') return { success: false, message: 'Only supported on Windows.' }
+    if (typeof win.setBackgroundMaterial !== 'function') {
+      return { success: false, message: 'Electron does not support setBackgroundMaterial().' }
+    }
+
+    const allowed = new Set(['none', 'mica', 'acrylic', 'tabbed'])
+    if (!allowed.has(material)) return { success: false, message: 'Invalid material.' }
+
+    try {
+      win.setBackgroundMaterial(material)
+      return { success: true }
+    } catch (error) {
+      return { success: false, message: error?.message || String(error) }
+    }
   })
 
   // 黑暗模式切换
@@ -219,6 +241,16 @@ export function registerIpcHandlers() {
   ipcMain.handle('restore-note-version', (event, noteId, versionId) => {
     const result = restoreNoteVersion(noteId, versionId)
     return result
+  })
+
+  // 删除历史版本
+  ipcMain.handle('delete-note-version', (event, noteId, versionId) => {
+    try {
+      const result = deleteNoteVersion(noteId, versionId)
+      return { success: true, changes: result?.changes || 0 }
+    } catch (error) {
+      return { success: false, message: error?.message || String(error) }
+    }
   })
 
   // 复制笔记

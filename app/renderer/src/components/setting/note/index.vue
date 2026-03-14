@@ -1,14 +1,7 @@
 <template>
-  <div :style="{ marginLeft: '20px' }">
+  <div class="note-setting-container">
     <a-space direction="vertical" style="width: 100%">
-      <div
-        :style="{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignContent: 'center',
-          flexWrap: 'wrap'
-        }"
-      >
+      <div class="note-setting-header">
         <a-typography-text :style="{ display: 'flex', alignContent: 'center', flexWrap: 'wrap' }" type="secondary">
           当前笔记
         </a-typography-text>
@@ -143,3 +136,16 @@ onUnmounted(() => {
   window.removeEventListener('refresh-side-panel-tree', refreshHandler)
 })
 </script>
+
+<style scoped>
+.note-setting-container {
+  margin-left: 20px;
+}
+
+.note-setting-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+}
+</style>

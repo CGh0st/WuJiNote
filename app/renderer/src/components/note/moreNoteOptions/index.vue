@@ -14,7 +14,7 @@
       <div ref="drawerContentRef" class="more-options-panel">
         <div class="history-section">
           <div class="section-title">编辑记录</div>
-          <a-scrollbar class="timeline-wrapper" style="max-height: 200px; overflow-y: auto; margin-left: 15px">
+          <a-scrollbar class="timeline-wrapper">
             <a-timeline>
               <a-timeline-item v-for="log in noteLogs" :key="log.id" :label="formatDate(log.createdTime)">
                 {{ log.details }}
@@ -29,6 +29,10 @@
             <div class="action-item" @click="restoreVersion">
               <icon-history :size="18" />
               <span>设为主版本</span>
+            </div>
+            <div class="action-item delete" @click="deletePreviewingVersion">
+              <icon-delete :size="16" />
+              <span>删除该版本</span>
             </div>
           </template>
           <template v-else-if="isReadOnly && isDeleted">
@@ -66,6 +70,10 @@
     </a-drawer>
     <move-note-modal ref="moveNoteModalRef" :note-id="noteId" @note-moved="handleNoteMoved"></move-note-modal>
     <delete-note-modal ref="deleteNoteModalRef" @note-deleted="handleNoteDeleted"></delete-note-modal>
+    <delete-note-version-modal
+      ref="deleteNoteVersionModalRef"
+      @version-deleted="handleVersionDeleted"
+    ></delete-note-version-modal>
   </div>
 </template>
 
@@ -73,6 +81,7 @@
 import { ref, onUnmounted, watch } from 'vue'
 import MoveNoteModal from './moveNoteModal.vue'
 import deleteNoteModal from './deleteNoteModal.vue'
+import DeleteNoteVersionModal from './deleteNoteVersionModal.vue'
 import { Notification } from '@arco-design/web-vue'
 import router from '../../../router.js'
 
@@ -109,6 +118,7 @@ const visible = ref(false)
 const drawerContentRef = ref(null)
 const moveNoteModalRef = ref()
 const deleteNoteModalRef = ref()
+const deleteNoteVersionModalRef = ref()
 const noteLogs = ref([])
 const isEditable = defineModel('isEditable', {
   type: Boolean,
@@ -153,6 +163,7 @@ const emit = defineEmits([
   'save-and-quit-edit-mode',
   'note-restored',
   'version-restored',
+  'version-deleted',
   'note-moved',
   'request-toggle-lock'
 ])
@@ -209,6 +220,11 @@ const handleNoteMoved = () => {
 const handleNoteDeleted = () => {
   hideDrawer()
   router.push('/')
+}
+
+const handleVersionDeleted = () => {
+  hideDrawer()
+  emit('version-deleted')
 }
 
 const showMoveNoteModal = () => {
@@ -285,6 +301,11 @@ const restoreVersion = async () => {
       style: { lineHeight: 'normal' }
     })
   }
+}
+
+const deletePreviewingVersion = async () => {
+  if (!props.previewingVersionId) return
+  deleteNoteVersionModalRef.value?.showModal(props.noteId, props.previewingVersionId)
 }
 
 const copyNote = async () => {
@@ -365,7 +386,10 @@ defineExpose({
   margin-bottom: 12px;
 }
 
-.timeline-wrapper {
+:deep(.timeline-wrapper) {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-left: 15px;
   padding: 10px 8px;
 }
 

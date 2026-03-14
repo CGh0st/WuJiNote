@@ -1,14 +1,7 @@
 <template>
-  <div :style="{ marginLeft: '20px' }">
+  <div class="repository-setting-container">
     <a-space direction="vertical" style="width: 100%">
-      <div
-        :style="{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignContent: 'center',
-          flexWrap: 'wrap'
-        }"
-      >
+      <div class="repository-setting-header">
         <a-typography-text :style="{ display: 'flex', alignContent: 'center', flexWrap: 'wrap' }" type="secondary">
           当前知识库
         </a-typography-text>
@@ -124,4 +117,15 @@ onMounted(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.repository-setting-container {
+  margin-left: 20px;
+}
+
+.repository-setting-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+}
+</style>

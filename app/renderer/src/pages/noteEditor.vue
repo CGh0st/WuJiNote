@@ -63,6 +63,7 @@
             @save-and-quit-edit-mode="handleSaveNoteAndQuitEditMode"
             @note-restored="handleNoteRestored"
             @version-restored="fetchNoteDetails(currentNoteId)"
+            @version-deleted="handleVersionDeleted"
             @note-moved="fetchNoteDetails(currentNoteId)"
             @request-toggle-lock="handleToggleLock"
           ></more-note-options>
@@ -228,6 +229,10 @@ const handleNoteRestored = async () => {
   await fetchNoteDetails(currentNoteId.value)
   isHistoryVersion.value = false
   isDeletedNote.value = false
+}
+
+const handleVersionDeleted = async () => {
+  await fetchNoteDetails(currentNoteId.value)
 }
 
 const goBackToRecycleBin = () => {
